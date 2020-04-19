@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Foto Editor</title>
+  </head>
+  <body>
+    <h1>Welcome To Home.</h1>
+
+    {% for post in posts %}
+      <h1> {{ post.title }} </h1>
+      <h1> {{ post.author }} </h1>
+    {% endfor %}
+  </body>
+</html>

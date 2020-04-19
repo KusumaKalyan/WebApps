@@ -1,0 +1,298 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'FotoEditor/editPage.css' %}">
+    <script type="text/javascript" src="{% static 'FotoEditor/si.files.js' %}"></script>
+    <title>Foto Editor - EDITOR</title>
+    <style>
+    :root {
+        --my-greyscale: 0%;
+        --my-blur: 0;
+        --my-contrast: 100%;
+        --my-brightness: 100%;
+        --my-hue-rotate: 1;
+        --my-invert: 0%;
+        --my-saturate: 100%;
+        --my-sepia: 0%;
+    }
+
+    .slidecontainer {
+      width: 100%;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 0.5vh;
+      border-radius: 5px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 19px;
+      border: 0;
+      background: url('static/FotoEditor/circle.png');
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 23px;
+      height: 24px;
+      border: 0;
+      background: url('static/FotoEditor/circle.png');
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+
+    .edit-image {
+      filter: grayscale(var(--my-greyscale)) brightness(var(--my-brightness)) contrast(var(--my-contrast)) hue-rotate(calc(var(--my-hue-rotate) *1deg)) blur(calc(var(--my-blur) *1px)) invert(var(--my-invert)) saturate(var(--my-saturate)) sepia(var(--my-sepia));
+    }
+    </style>
+    <script>
+    function reset() {
+      document.documentElement.style.setProperty('--my-greyscale', 0);
+      document.documentElement.style.setProperty('--my-blur', 0);
+      document.documentElement.style.setProperty('--my-contrast', 1);
+      document.documentElement.style.setProperty('--my-brightness', 1);
+      document.documentElement.style.setProperty('--my-hue-rotate', 1);
+      document.documentElement.style.setProperty('--my-invert', 0);
+      document.documentElement.style.setProperty('--my-saturate', 1);
+      document.documentElement.style.setProperty('--my-sepia', 0);
+    }
+    reset();
+    </script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row custom-body">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+          <div class="container photo-displayer">
+            <img id=imageID class="edit-image" src="{% static "FotoEditor/1.jpg" %}"><!-- onload="setImageParameters()" -->
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+          <div class="container-fluid edit-tools">
+            <div style="text-align: center; padding-top:10px;">
+              <label class="cabinet">
+                <input class="file" type="file" id="img" name="img" accept="image/*" onchange="onFileSelected(event)">
+              </label>
+            </div>
+              <div class="container-fluid slidecontainer">
+                <h6 style="padding-top: 0px;">GreyScale</h6>
+                <input type="range" min="0" max="100" value="0" class="slider" id="greyRange">
+                <!-- <p>Value: <span id="greyscale"></span></p> -->
+              </div>
+
+              <div class="container-fluid slidecontainer">
+                <h6>Brightness</h6>
+                <input type="range" min="0" max="100" value="100" class="slider" id="brightnessRange">
+                <!-- <p>Value: <span id="brightness"></span></p> -->
+              </div>
+
+              <div class="container-fluid slidecontainer">
+                <h6>Blur</h6>
+                <input type="range" min="0" max="100" value="0" class="slider" id="blurRange">
+                <!-- <p>Value: <span id="blur"></span></p> -->
+              </div>
+
+              <div class="container-fluid slidecontainer">
+                <h6>Contrast</h6>
+                <input type="range" min="0" max="1000" value="100" class="slider" id="contrastRange">
+                <!-- <p>Value: <span id="contrast"></span></p> -->
+              </div>
+
+              <div class="container-fluid slidecontainer">
+                <h6>Hue</h6>
+                <input type="range" min="0" max="360" value="0" class="slider" id="hueRange">
+                <!-- <p>Value: <span id="hue"></span></p> -->
+              </div>
+
+              <div class="container-fluid slidecontainer">
+                <h6>Invert</h6>
+                <input type="range" min="0" max="100" value="0" class="slider" id="invertRange">
+                <!-- <p>Value: <span id="invert"></span></p> -->
+              </div>
+
+              <div class="container-fluid slidecontainer">
+                <h6>Saturate</h6>
+                <input type="range" min="0" max="1000" value="100" class="slider" id="saturateRange">
+                <!-- <p>Value: <span id="saturate"></span></p> -->
+              </div>
+
+              <div class="container-fluid slidecontainer">
+                <h6>Sepia</h6>
+                <input type="range" min="0" max="100" value="0" class="slider" id="sepiaRange">
+                <!-- <p>Value: <span id="sepia"></span></p> -->
+              </div>
+              <div class="container row" style="text-align: center; padding-top:10px;">
+                <div class="col-xs-12 col-sm-5 col-md-6 col-lg-6">
+                  <a href="#" onclick="prepHref(this)" download>
+                    <button class="download-button" type="button" name="button">
+                    </button>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                  <button class="reset-button" type="button" name="button" onclick="reset()">
+                  </button>
+                </div>
+              </div>
+              <canvas id="canvas" width="300" height="300" hidden></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- This script is for generating custom image -->
+    <script type="text/javascript">
+      function prepHref(linkElement) {
+          var myImage = document.getElementById('imageID');
+          var canvas = document.getElementById("canvas");
+          canvas.width = myImage.naturalWidth
+          canvas.height = myImage.naturalHeight
+          var ctx = canvas.getContext('2d');
+          console.log(document.documentElement.style.getPropertyValue('--my-greyscale'));
+          var filter = "grayscale("+String(document.documentElement.style.getPropertyValue('--my-greyscale'))+") "+
+                       "brightness("+String(document.documentElement.style.getPropertyValue('--my-brightness'))+") "+
+                       "hue-rotate("+String(document.documentElement.style.getPropertyValue('--my-hue-rotate'))+"deg) "+
+                       "blur("+String(document.documentElement.style.getPropertyValue('--my-blur'))+"px) "+
+                       "contrast("+String(document.documentElement.style.getPropertyValue('--my-contrast'))+") "+
+                       "saturate("+String(document.documentElement.style.getPropertyValue('--my-saturate'))+") "+
+                       "invert("+String(document.documentElement.style.getPropertyValue('--my-invert'))+") "+
+                       "sepia("+String(document.documentElement.style.getPropertyValue('--my-sepia'))+")";
+          ctx.filter = filter;
+          ctx.drawImage(myImage, 0, 0, myImage.naturalWidth, myImage.naturalHeight);
+          var myImage_d = canvas.toDataURL("image/png");
+          linkElement.href = myImage_d;
+      }
+    </script>
+    <script>
+    SI.Files.stylizeAll();
+    // This function sets the dimensions of div based on the uploaded image
+      function myFunction() {
+        var img = document.getElementById('imageID');
+        var width = img.naturalWidth;
+        var height = img.naturalHeight;
+        console.log(width, height);
+        document.documentElement.style.setProperty('--my-width', width);
+        document.documentElement.style.setProperty('--my-height', height);
+      }
+    // // Don't know the use of this funcion but kepp it for future purpose
+    //   function getImageData() {
+    //     var img = document.getElementById('img');
+    //     var width = img.naturalWidth;
+    //     var height = img.naturalHeight;
+    //     console.log(img[0]);
+    //     console.log("width : ", width, height);
+    //   }
+    // This function sets the uploaded image in img block
+      function onFileSelected(event) {
+        reset();
+        var selectedFile = event.target.files[0];
+        var reader = new FileReader();
+        var imgtag = document.getElementById("imageID");
+        imgtag.title = selectedFile.name;
+        reader.onload = function(event) {
+        imgtag.src = event.target.result;
+        };
+
+        reader.readAsDataURL(selectedFile);
+      }
+      var img = document.getElementById('imageID');
+      var width = img.naturalWidth;
+      var height = img.naturalHeight;
+      console.log(width, height);
+      document.documentElement.style.setProperty('--my-width', width);
+      document.documentElement.style.setProperty('--my-height', height);
+    </script>
+    <!-- This script is for edit tools -->
+    <script>
+      var greySlider = document.getElementById("greyRange");
+      // var greyscale = document.getElementById("greyscale");
+      // greyscale.innerHTML = greySlider.value;
+      greySlider.oninput = function() {
+        // greyscale.innerHTML = this.value;
+        document.documentElement.style.setProperty('--my-greyscale', this.value/100);
+        console.log(document.documentElement.style.getPropertyValue('--my-greyscale'));
+      }
+      var brightnessSlider = document.getElementById("brightnessRange");
+      // var brightness = document.getElementById("brightness");
+      // brightness.innerHTML = brightnessSlider.value;
+      brightnessSlider.oninput = function() {
+        // brightness.innerHTML = this.value;
+        document.documentElement.style.setProperty('--my-brightness', this.value/100);
+        console.log(document.documentElement.style.getPropertyValue('--my-brightness'));
+      }
+      var blurSlider = document.getElementById("blurRange");
+      // var blur = document.getElementById("blur");
+      // blur.innerHTML = blurSlider.value;
+      blurSlider.oninput = function() {
+        // blur.innerHTML = this.value;
+        document.documentElement.style.setProperty('--my-blur', this.value);
+        console.log(document.documentElement.style.getPropertyValue('--my-blur'));
+      }
+      var contrastSlider = document.getElementById("contrastRange");
+      // var contrast = document.getElementById("contrast");
+      // contrast.innerHTML = contrastSlider.value;
+      contrastSlider.oninput = function() {
+        // contrast.innerHTML = this.value;
+        document.documentElement.style.setProperty('--my-contrast', this.value/100);
+        console.log(document.documentElement.style.getPropertyValue('--my-contrast'));
+      }
+      var hueSlider = document.getElementById("hueRange");
+      // var hue = document.getElementById("hue");
+      // hue.innerHTML = hueSlider.value;
+      hueSlider.oninput = function() {
+        // hue.innerHTML = this.value;
+        document.documentElement.style.setProperty('--my-hue-rotate', this.value);
+        console.log(document.documentElement.style.getPropertyValue('--my-hue-rotate'));
+      }
+      var invertSlider = document.getElementById("invertRange");
+      // var invert = document.getElementById("invert");
+      // invert.innerHTML = invertSlider.value;
+      invertSlider.oninput = function() {
+        // invert.innerHTML = this.value;
+        document.documentElement.style.setProperty('--my-invert', this.value/100);
+        console.log(document.documentElement.style.getPropertyValue('--my-invert'));
+      }
+      var saturateSlider = document.getElementById("saturateRange");
+      // var saturate = document.getElementById("saturate");
+      // saturate.innerHTML = saturateSlider.value;
+      saturateSlider.oninput = function() {
+        // saturate.innerHTML = this.value;
+        document.documentElement.style.setProperty('--my-saturate', this.value/100);
+        console.log(document.documentElement.style.getPropertyValue('--my-saturate'));
+      }
+      var sepiaSlider = document.getElementById("sepiaRange");
+      // var sepia = document.getElementById("sepia");
+      // sepia.innerHTML = sepiaSlider.value;
+      sepiaSlider.oninput = function() {
+        // sepia.innerHTML = this.value;
+        document.documentElement.style.setProperty('--my-sepia', this.value/100);
+        console.log(document.documentElement.style.getPropertyValue('--my-sepia'));
+      }
+    </script>
+    <script>
+      function downloadImage() {
+
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
