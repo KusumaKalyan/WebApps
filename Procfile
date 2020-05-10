@@ -1,1 +1,1 @@
-
+web: gunicorn WebApps.wsgi
