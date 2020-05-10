@@ -18,6 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('FotoEditor.urls')),
+    path('/', include('FotoEditor.urls')),
     path('admin/', admin.site.urls),
     path('fotoEditor/', include('FotoEditor.urls')),
 ]
