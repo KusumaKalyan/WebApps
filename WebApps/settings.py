@@ -25,7 +25,7 @@ SECRET_KEY = 'dua843n26772tv%h(g-w0y!yp(-e*w74em)llwm8h%ve(0&84@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['foto-editor-webapp.herokuapp.com']
 
 
 # Application definition
