@@ -1,5 +1,4 @@
 Django==3.0.5
 gunicorn==20.0.4
-psycopg==2.8.3
 whitenoise==5.0.1
 django-extensions==2.2.9
