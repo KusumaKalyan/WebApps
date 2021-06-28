@@ -44,7 +44,6 @@ img {
   width: var(--my-width);
   height: var(--my-height);
   max-width: 100%;
-  border: 0.5vh solid;
   border-color: #1BC3C4;
   border-radius: 1vh;
   padding: 0px;
