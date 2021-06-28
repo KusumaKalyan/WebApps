@@ -23,7 +23,7 @@ def home(request):
     context = {
         'posts': posts
     }
-    return render(request, 'FotoEditor/home.html', context)
+    return render(request, 'FotoEditor/editPage.html', context)
 
 def editPage(request):
     return render(request, 'FotoEditor/editPage.html')
