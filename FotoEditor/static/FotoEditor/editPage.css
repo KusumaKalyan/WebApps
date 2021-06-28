@@ -58,7 +58,6 @@ img {
 .edit-tools {
   background-color: rgba(0, 0, 0, 0.99);
   height: 67vh;
-  border: 0.5vh solid;
   border-color: #1BC3C4;
   border-radius: 1vh;
   /* padding: 10px; */
